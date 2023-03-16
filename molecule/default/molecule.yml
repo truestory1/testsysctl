@@ -1,0 +1,19 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+platforms:
+  - name: testsysctl-rhel8
+    box: generic/rocky8
+    box_version: 4.2.14
+    memory: 1024
+    cpus: 1
+    provider_options:
+      gui: True
+    provider_override_args:
+      - "vm.synced_folder './', '/vagrant', disabled: true"
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

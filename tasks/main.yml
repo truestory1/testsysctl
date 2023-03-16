@@ -1,0 +1,9 @@
+---
+# tasks file for testsysctl
+- name: Manage sysctl entries
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: "{{ item.state | default('present') }}"
+    sysctl_file: /etc/sysctl.d/765-kernel-configure.conf
+  loop: "{{ sysctl_entries }}"

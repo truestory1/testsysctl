@@ -1,0 +1,22 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  become: true
+  tasks:
+
+    - name: Load variables
+      ansible.builtin.include_vars: ../../vars/main.yml
+
+    - name: Manage sysctl entries
+      ansible.posix.sysctl:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        state: "{{ item.state | default('present') }}"
+        sysctl_file: /etc/sysctl.d/765-kernel-configure.conf
+      loop: "{{ sysctl_entries }}"
+      check_mode: true
+      register: conf
+      failed_when: (conf is changed) or (conf is failed)

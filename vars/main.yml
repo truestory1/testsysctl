@@ -1,0 +1,5 @@
+---
+# vars file for testsysctl
+sysctl_entries:
+  - name: kernel.msgmni
+    value: 1024
